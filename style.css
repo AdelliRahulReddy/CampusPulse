@@ -535,28 +535,96 @@ body {
     opacity: 0.2;
 }
 
-/* Responsive */
-@media (max-width: 1400px) {
+/* --- Responsive Overhaul --- */
+
+/* Laptops & Tablets (2-column bento) */
+@media (max-width: 1100px) {
     .bento-grid {
-        grid-template-columns: repeat(3, 1fr);
-    }
-
-    .col-span-3 {
-        grid-column: span 3;
-    }
-}
-
-@media (max-width: 1000px) {
-    .bento-grid {
-        grid-template-columns: repeat(1, 1fr);
-    }
-
-    .col-span-2,
-    .col-span-3 {
-        grid-column: span 1;
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-areas:
+            "trend trend"
+            "kpi1 kpi2"
+            "bar radar"
+            "bar radar"
+            "filter insight"
+            "filter insight"
+            "table table";
     }
 
     .bento-wrapper {
-        padding: 20px;
+        padding: 24px;
+    }
+}
+
+/* Mobile (1-column stack) */
+@media (max-width: 768px) {
+    .bento-nav {
+        flex-direction: column;
+        height: auto;
+        padding: 24px;
+        gap: 20px;
+        text-align: center;
+    }
+
+    .nav-left {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .nav-titles h1 {
+        font-size: 1.2rem;
+    }
+
+    .nav-sub {
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .bento-grid {
+        grid-template-columns: 1fr;
+        grid-template-areas: none;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    /* Reset grid area constraints for flex flow */
+    .trend-card,
+    .kpi-1,
+    .kpi-2,
+    .insight-bento,
+    .facility-card,
+    .radar-card,
+    .filter-bento,
+    .activity-card {
+        grid-area: auto !important;
+        width: 100%;
+    }
+
+    .card-head h3 {
+        font-size: 1rem;
+    }
+
+    .header-text p {
+        font-size: 0.75rem;
+    }
+
+    .main-chart {
+        height: 250px;
+    }
+
+    .radar-full {
+        height: 300px;
+    }
+
+    .search-neo {
+        max-width: 100%;
+        margin-top: 12px;
+    }
+
+    .card-head-table {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
     }
 }

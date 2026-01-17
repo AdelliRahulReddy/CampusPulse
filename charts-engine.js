@@ -139,13 +139,13 @@ window.ChartsEngine = (function () {
         const ctx = document.getElementById('radarChart')?.getContext('2d');
         if (!ctx) return;
 
+        const isMobile = window.innerWidth < 768;
         const depts = [...new Set(data.map(d => d.Department))].sort();
         const scores = depts.map(dep => {
             const recs = data.filter(d => d.Department === dep);
             return (recs.reduce((a, b) => a + b.Rating, 0) / recs.length).toFixed(1);
         });
 
-        // Use shorthands for better Bento fitting
         const shortLabels = depts.map(l => {
             if (l.includes("Computer Science")) return "CSE";
             if (l.includes("Electronics")) return "ECE";
@@ -176,7 +176,7 @@ window.ChartsEngine = (function () {
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
-                layout: { padding: 40 },
+                layout: { padding: isMobile ? 20 : 40 },
                 plugins: { legend: { display: false } },
                 scales: {
                     r: {
@@ -184,7 +184,7 @@ window.ChartsEngine = (function () {
                         grid: { color: gridColor },
                         pointLabels: {
                             color: textColor,
-                            font: { size: 11, weight: '700', family: 'Outfit' }
+                            font: { size: isMobile ? 8 : 11, weight: '700', family: 'Outfit' }
                         },
                         ticks: {
                             display: false,
@@ -199,11 +199,12 @@ window.ChartsEngine = (function () {
     }
 
     function getOptions(textColor, gridColor) {
+        const isMobile = window.innerWidth < 768;
         return {
             responsive: true,
             maintainAspectRatio: false,
             layout: {
-                padding: 60
+                padding: isMobile ? { top: 20, bottom: 20, left: 5, right: 5 } : 60
             },
             interaction: {
                 intersect: false,
@@ -212,6 +213,7 @@ window.ChartsEngine = (function () {
             plugins: {
                 legend: { display: false },
                 tooltip: {
+                    enabled: !isMobile,
                     backgroundColor: 'rgba(15, 23, 42, 0.9)',
                     titleFont: { family: 'Outfit', size: 14, weight: 'bold' },
                     bodyFont: { family: 'Outfit', size: 13 },
@@ -223,11 +225,16 @@ window.ChartsEngine = (function () {
             scales: {
                 x: {
                     grid: { display: false },
-                    ticks: { color: textColor, font: { family: 'Outfit', size: 11 } }
+                    ticks: {
+                        color: textColor,
+                        font: { family: 'Outfit', size: isMobile ? 8 : 11 },
+                        maxRotation: 45,
+                        minRotation: 45
+                    }
                 },
                 y: {
                     grid: { color: gridColor, drawBorder: false },
-                    ticks: { color: textColor, font: { family: 'Outfit', size: 11 } }
+                    ticks: { color: textColor, font: { family: 'Outfit', size: isMobile ? 8 : 11 } }
                 }
             }
         };

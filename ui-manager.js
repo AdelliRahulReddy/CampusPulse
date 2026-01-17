@@ -41,6 +41,10 @@ document.addEventListener('DOMContentLoaded', async () => {
         updateUI();
     });
 
+    window.addEventListener('resize', () => {
+        updateUI();
+    });
+
     [facF, depF, yrF].forEach(el => el.addEventListener('change', () => { currentPage = 1; sync(); }));
     ratF.addEventListener('input', (e) => { ratV.textContent = `${e.target.value}★`; sync(); });
     tableSearch.addEventListener('input', (e) => { currentSearch = e.target.value.toLowerCase(); currentPage = 1; renderFeed(); });

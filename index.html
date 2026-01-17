@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CampusPulse | Chaitanya University CSE Analytics</title>
+    <!-- Premium Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
+</head>
+
+<body class="bento-body">
+    <!-- Animated Neon Background -->
+    <div class="neon-bg">
+        <div class="neon-blob blur-cyan"></div>
+        <div class="neon-blob blur-magenta"></div>
+        <div class="neon-blob blur-gold"></div>
+    </div>
+
+    <div class="bento-wrapper">
+        <!-- TOP NAV -->
+        <header class="bento-nav glass-textured">
+            <div class="nav-left">
+                <div class="logo-box">🏛️</div>
+                <div class="nav-titles">
+                    <h1>Chaitanya Deemed to be University</h1>
+                    <div class="nav-sub">
+                        <span class="badge-cse">CSE BRANCH</span>
+                        <span class="pulse-status"><span class="pulse-dot"></span> LIVE PULSE FEED | SESSION
+                            2025-26</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="nav-actions">
+                <div id="currentTime" class="time-box">--:--:--</div>
+                <button id="themeToggle" class="btn-neo">🌙</button>
+            </div>
+        </header>
+
+        <!-- BENTO ANALYTICS GRID -->
+        <div class="bento-grid">
+
+            <!-- MAIN TRENDS -->
+            <section class="bento-item trend-card glass-textured">
+                <div class="card-head">
+                    <div class="header-text">
+                        <h3>Sentiment Temporal Trend</h3>
+                        <p>Campus satisfaction moving average</p>
+                    </div>
+                </div>
+                <div class="canvas-container main-chart">
+                    <canvas id="lineChart"></canvas>
+                </div>
+            </section>
+
+            <!-- KPI QUICK STATS -->
+            <section class="bento-item kpi-bento kpi-1 glass-textured compact">
+                <div class="kpi-row">
+                    <div class="kpi-mini">
+                        <span class="kpi-label">TOTAL VOICES</span>
+                        <h2 id="kpiTotal">0</h2>
+                    </div>
+                    <div class="kpi-icon-wrap blue">👥</div>
+                </div>
+            </section>
+
+            <section class="bento-item kpi-bento kpi-2 glass-textured compact">
+                <div class="kpi-row">
+                    <div class="kpi-mini">
+                        <span class="kpi-label">CAMPUS VIBE</span>
+                        <h2 id="kpiSatisfaction">0.0</h2>
+                    </div>
+                    <div class="kpi-icon-wrap gold">⭐</div>
+                </div>
+            </section>
+
+            <!-- SMART INSIGHTS -->
+            <section class="bento-item insight-bento glass-textured">
+                <div class="card-head">
+                    <div class="header-text">
+                        <h3>AI Insights</h3>
+                        <p>Heuristic trend analysis</p>
+                    </div>
+                </div>
+                <div id="insightFeed" class="bento-feed"></div>
+            </section>
+
+            <!-- FACILITY BREAKDOWN -->
+            <section class="bento-item facility-card glass-textured compact">
+                <div class="card-head">
+                    <div class="header-text">
+                        <h3>Facility Heatmap</h3>
+                        <p>Avg rating by facility</p>
+                    </div>
+                </div>
+                <div class="canvas-container small-chart">
+                    <canvas id="barChart"></canvas>
+                </div>
+            </section>
+
+            <!-- STRATEGIC RADAR (SPANNING 2x2) -->
+            <section class="bento-item radar-card glass-textured">
+                <div class="card-head">
+                    <div class="header-text">
+                        <h3>Strategic Radar</h3>
+                        <p>Branch-wise comparative data</p>
+                    </div>
+                </div>
+                <div class="canvas-container radar-full">
+                    <canvas id="radarChart"></canvas>
+                </div>
+            </section>
+
+            <!-- ANALYTICS FILTER -->
+            <section class="bento-item filter-bento glass-textured">
+                <div class="card-head">
+                    <div class="header-text">
+                        <h3>Analytics Filter</h3>
+                        <p>Segment data results</p>
+                    </div>
+                </div>
+                <div class="filter-stack-bento">
+                    <select id="facFilter">
+                        <option value="All">All Facilities</option>
+                    </select>
+                    <select id="deptFilter">
+                        <option value="All">All Departments</option>
+                    </select>
+                    <select id="yearFilter">
+                        <option value="All">All Years</option>
+                    </select>
+                    <div class="range-box">
+                        <label>Min Rating: <span id="ratingVal">1★</span></label>
+                        <input type="range" id="ratingFilter" min="1" max="5" value="1">
+                    </div>
+                </div>
+            </section>
+
+            <!-- FEEDBACK ACTIVITY (FULL WIDTH BOTTOM) -->
+            <section class="bento-item activity-card glass-textured">
+                <div class="card-head-table">
+                    <div class="header-text">
+                        <h3>Student Pulse Feed</h3>
+                        <span id="recordCount" class="badge-count">0 Records Loaded</span>
+                    </div>
+                    <div class="search-neo">
+                        <input type="text" id="tableSearch" placeholder="Search by name, review or keywords...">
+                    </div>
+                </div>
+
+                <div class="activity-feed-container">
+                    <table id="feedbackTable">
+                        <thead>
+                            <tr>
+                                <th>STUDENT</th>
+                                <th>FACILITY</th>
+                                <th>SATISFACTION</th>
+                                <th>BRANCH</th>
+                                <th>REVIEW COMMENT</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tableBody"></tbody>
+                    </table>
+                </div>
+
+                <div class="bento-pagination">
+                    <button id="prevBtn" class="p-btn">PROV</button>
+                    <span id="pageDetail">PAGE 1 / 1</span>
+                    <button id="nextBtn" class="p-btn">NEXT</button>
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <!-- Modular Scripts -->
+    <script src="database.js"></script>
+    <script src="data-engine.js"></script>
+    <script src="charts-engine.js"></script>
+    <script src="ui-manager.js"></script>
+</body>
+
+</html>

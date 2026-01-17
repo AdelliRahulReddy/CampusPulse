@@ -36,7 +36,7 @@ body {
     transition: background 0.5s ease;
 }
 
-/* Neon Background Blobs */
+/* --- BACKGROUND ANIMATION --- */
 .neon-bg {
     position: fixed;
     top: 0;
@@ -87,13 +87,14 @@ body {
     }
 }
 
+/* --- LAYOUT WRAPPER --- */
 .bento-wrapper {
     max-width: 1600px;
     margin: 0 auto;
     padding: 40px;
 }
 
-/* Nav */
+/* --- NAVIGATION --- */
 .bento-nav {
     display: flex;
     justify-content: space-between;
@@ -204,7 +205,7 @@ body {
     box-shadow: 0 0 15px rgba(34, 211, 238, 0.2);
 }
 
-/* Glass Textured Panel */
+/* --- BENTO GRID SYSTEM --- */
 .glass-textured {
     background: var(--bg-card);
     backdrop-filter: blur(25px) saturate(180%);
@@ -219,10 +220,8 @@ body {
 .glass-textured:hover {
     transform: translateY(-4px) scale(1.005);
     box-shadow: 0 20px 48px rgba(0, 0, 0, 0.2);
-    border-color: var(--glass-border);
 }
 
-/* Bento Grid Architecture */
 .bento-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -233,7 +232,6 @@ body {
         "trend trend bar insight"
         "radar radar filter insight"
         "radar radar filter insight"
-        "table table table table"
         "table table table table"
         "table table table table";
 }
@@ -275,14 +273,9 @@ body {
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    min-height: 0;
 }
 
-.bento-item.compact {
-    padding: 18px;
-}
-
-/* Card Components */
+/* --- CARD COMPONENTS --- */
 .card-head {
     display: flex;
     justify-content: space-between;
@@ -298,15 +291,13 @@ body {
     color: var(--text-primary);
 }
 
-.compact .card-head {
-    margin-bottom: 12px;
+.header-text p {
+    font-size: 0.8rem;
+    color: var(--text-dim);
+    margin-top: 4px;
 }
 
-.header-icon {
-    font-size: 1.2rem;
-}
-
-/* KPI Bento */
+/* KPI Stats */
 .kpi-row {
     display: flex;
     justify-content: space-between;
@@ -348,7 +339,7 @@ body {
     color: var(--neon-gold);
 }
 
-/* Charts and Canvas Persistence */
+/* Charts */
 .canvas-container {
     flex: 1;
     width: 100%;
@@ -357,17 +348,11 @@ body {
     min-height: 0;
 }
 
-.radar-full {
-    height: 100%;
-    width: 100%;
-}
-
 /* AI Feed */
 .bento-feed {
     display: flex;
     flex-direction: column;
     gap: 12px;
-    margin-top: 8px;
     flex: 1;
     overflow-y: auto;
     padding-right: 4px;
@@ -381,10 +366,6 @@ body {
     font-size: 0.85rem;
     line-height: 1.6;
     color: var(--text-dim);
-}
-
-.insight-bento-card b {
-    color: var(--text-primary);
 }
 
 /* Filters */
@@ -402,7 +383,6 @@ body {
     border-radius: 12px;
     color: var(--text-primary);
     outline: none;
-    font-size: 0.85rem;
 }
 
 .range-box {
@@ -417,12 +397,13 @@ body {
     color: var(--text-dim);
 }
 
-/* Table Section */
+/* --- TABLE SECTION --- */
 .card-head-table {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 24px;
+    gap: 20px;
 }
 
 .badge-count {
@@ -430,9 +411,7 @@ body {
     padding: 4px 12px;
     border-radius: 100px;
     font-size: 0.65rem;
-    font-weight: 800;
     color: var(--text-dim);
-    margin-left: 10px;
 }
 
 .search-neo {
@@ -448,19 +427,19 @@ body {
     width: 100%;
     color: var(--text-primary);
     outline: none;
-    transition: 0.3s;
-    font-size: 0.85rem;
 }
 
 .activity-feed-container {
     overflow-x: auto;
     width: 100%;
+    -webkit-overflow-scrolling: touch;
 }
 
 #feedbackTable {
     width: 100%;
     border-collapse: separate;
     border-spacing: 0 8px;
+    min-width: 800px;
 }
 
 #feedbackTable th {
@@ -468,7 +447,6 @@ body {
     padding: 12px 20px;
     font-size: 0.65rem;
     text-transform: uppercase;
-    letter-spacing: 1.5px;
     color: var(--text-dim);
 }
 
@@ -490,11 +468,6 @@ body {
     border-radius: 0 12px 12px 0;
 }
 
-.stars {
-    color: var(--neon-gold);
-    letter-spacing: 2px;
-}
-
 .branch-pill {
     background: rgba(244, 63, 94, 0.15);
     color: var(--neon-magenta);
@@ -502,9 +475,9 @@ body {
     font-weight: 800;
     padding: 5px 12px;
     border-radius: 8px;
-    white-space: nowrap;
 }
 
+/* Pagination */
 .bento-pagination {
     display: flex;
     justify-content: center;
@@ -518,7 +491,6 @@ body {
     border: 1px solid var(--glass-border);
     font-family: 'JetBrains Mono';
     font-size: 0.75rem;
-    font-weight: 800;
     padding: 8px 16px;
     border-radius: 8px;
     cursor: pointer;
@@ -531,48 +503,47 @@ body {
     background: rgba(34, 211, 238, 0.05);
 }
 
-.p-btn:disabled {
-    opacity: 0.2;
-}
+/* --- RESPONSIVE OVERHAUL --- */
 
-/* --- Responsive Overhaul --- */
-
-/* Laptops & Tablets (2-column bento) */
+/* Tablets & Medium Screens */
 @media (max-width: 1100px) {
+    .bento-wrapper {
+        padding: 24px;
+    }
+
     .bento-grid {
         grid-template-columns: repeat(2, 1fr);
         grid-template-areas:
             "trend trend"
             "kpi1 kpi2"
-            "bar radar"
-            "bar radar"
-            "filter insight"
-            "filter insight"
+            "bar insight"
+            "radar radar"
+            "filter filter"
             "table table";
-    }
-
-    .bento-wrapper {
-        padding: 24px;
+        grid-auto-rows: minmax(150px, auto);
     }
 }
 
-/* Mobile (1-column stack) */
+/* Mobile Devices */
 @media (max-width: 768px) {
+    .bento-wrapper {
+        padding: 16px;
+    }
+
     .bento-nav {
         flex-direction: column;
-        height: auto;
-        padding: 24px;
-        gap: 20px;
+        padding: 20px;
+        gap: 16px;
         text-align: center;
     }
 
     .nav-left {
         flex-direction: column;
-        gap: 12px;
+        gap: 10px;
     }
 
     .nav-titles h1 {
-        font-size: 1.2rem;
+        font-size: 1.1rem;
     }
 
     .nav-sub {
@@ -581,50 +552,47 @@ body {
     }
 
     .bento-grid {
-        grid-template-columns: 1fr;
-        grid-template-areas: none;
-        display: flex;
-        flex-direction: column;
-        gap: 16px;
+        grid-template-columns: repeat(2, 1fr);
+        /* KPIs side by side */
+        grid-template-areas:
+            "trend trend"
+            "kpi1 kpi2"
+            "bar bar"
+            "insight insight"
+            "radar radar"
+            "filter filter"
+            "table table";
+        grid-auto-rows: auto;
+        gap: 12px;
     }
 
-    /* Reset grid area constraints for flex flow */
-    .trend-card,
-    .kpi-1,
-    .kpi-2,
-    .insight-bento,
-    .facility-card,
-    .radar-card,
-    .filter-bento,
-    .activity-card {
-        grid-area: auto !important;
-        width: 100%;
+    .bento-item {
+        padding: 16px;
+        min-height: 0;
     }
 
-    .card-head h3 {
-        font-size: 1rem;
+    /* Responsive Chart Heights */
+    .canvas-container.main-chart {
+        height: 220px;
     }
 
-    .header-text p {
-        font-size: 0.75rem;
-    }
-
-    .main-chart {
-        height: 250px;
-    }
-
-    .radar-full {
-        height: 300px;
-    }
-
-    .search-neo {
-        max-width: 100%;
-        margin-top: 12px;
+    .canvas-container.radar-full {
+        height: 280px;
     }
 
     .card-head-table {
         flex-direction: column;
         align-items: flex-start;
-        gap: 10px;
+    }
+
+    .search-neo {
+        max-width: 100%;
+        width: 100%;
+    }
+
+    /* Fix table scrolling indicator */
+    .activity-feed-container {
+        border-radius: 12px;
+        background: rgba(0, 0, 0, 0.1);
     }
 }
